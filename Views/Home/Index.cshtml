@@ -1,0 +1,24 @@
+﻿@model DashboardIndexViewModel;
+
+@{
+    Layout = "_Dashboard";
+
+    ViewData["Title"] = "Home Page";
+}
+
+@if(await PermissionHelper.IsGodModeOn())
+{
+    <h1>All Groups</h1>
+} else
+{
+    <h1>My Groups </h1>
+}
+
+<div class="row">
+    @foreach (var Group in Model.Groups)
+    {
+        <div class="col-3">
+            @Html.Partial("./Components/GroupCard", Group)
+        </div>
+    }
+</div>

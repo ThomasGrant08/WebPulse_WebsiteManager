@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Cryptography;
+@using System.Text;
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    @Html.Partial("./Components/HeaderConfig")
+    @await RenderSectionAsync("HeaderScripts", required: false)
+</head>
+<body class="g-sidenav-show bg-gray-100">
+    @Html.Partial("./Components/Sidebar")
+    @RenderBody()
+    @Html.Partial("./Components/FooterScripts")
+    @await RenderSectionAsync("FooterScripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $('#flexSwitchCheckDefault').change(function () {
+            var isChecked = $(this).prop('checked');
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/ToggleGodMode',
+                success: function (data) {
+                    // Store the information in local storage
+                    localStorage.setItem('godModeStatus', isChecked);
+
+                    // Refresh the page
+                    location.reload();
+                },
+                error: function (error) {
+                    // Handle error, show a toast using Toastify
+                    Toastify({
+                        text: 'Failed to toggle God Mode',
+                        duration: 3000,
+                        destination: 'https://github.com/apvarun/toastify-js',
+                        newWindow: true,
+                        close: true,
+                        gravity: 'top', // `top` or `bottom`
+                        position: 'right', // `left`, `center`, or `right`
+                        stopOnFocus: true, // Prevent dismissing of toast on hover
+                        style: {
+                            background: 'linear-gradient(to right, #ff0000, #ff9900)',
+                        },
+                    }).showToast();
+                }
+            });
+        });
+
+        // Check for stored godModeStatus after page reload
+        $(document).ready(function () {
+            var godModeStatus = localStorage.getItem('godModeStatus');
+            if (godModeStatus !== null) {
+                // Show a toast based on the stored information
+                Toastify({
+                    text: 'God Mode ' + (godModeStatus === 'true' ? 'enabled' : 'disabled'),
+                    duration: 3000,
+                    destination: 'https://github.com/apvarun/toastify-js',
+                    newWindow: true,
+                    close: true,
+                    gravity: 'top', // `top` or `bottom`
+                    position: 'right', // `left`, `center`, or `right`
+                    stopOnFocus: true, // Prevent dismissing of toast on hover
+                    style: {
+                        background: 'linear-gradient(to right, #00b09b, #96c93d)',
+                    },
+                }).showToast();
+
+                // Clear the stored information
+                localStorage.removeItem('godModeStatus');
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+</body>
+</html>

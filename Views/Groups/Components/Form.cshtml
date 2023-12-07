@@ -1,0 +1,21 @@
+﻿@model WebPulse_WebManager.Models.Group;
+
+<h4>Group</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Name)})
+            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "invalid-feedback"})
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Description) })
+            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "invalid-feedback"})
+        </div>
+    </div>
+</div>
+

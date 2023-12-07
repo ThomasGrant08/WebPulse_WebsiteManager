@@ -1,0 +1,22 @@
+﻿@model SectionViewModel;
+
+@{
+    Layout = "_PrivateLayout";
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <h6>@Model.SectionName</h6>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+
+    </nav>
+    <div class="container-fluid py-4">
+        @RenderBody()
+    </div>
+</main>

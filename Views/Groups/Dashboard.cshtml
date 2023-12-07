@@ -1,0 +1,38 @@
+﻿@model GroupViewModel;
+
+@{
+    Layout = "_Dashboard";
+}
+
+<div class="row">
+    <h1>@Model.Name</h1>
+</div>
+<div class="row">
+    @foreach (ApplicationUser user in Model.AssignedUsers)
+    {
+        <div class="col-3">
+            <div class="card h-100">
+                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                    <span>@user.UserName</span>
+                </div>
+                <div class="card-body pt-2">
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-3">
+        <div class="card h-100 opacity-5">
+            <div class="card-body pt-2">
+                +
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-action="InviteUser">
+    <div class="form-group">
+        <input type="text" name="Email" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input type="submit" value="Invite" />
+    </div>
+</form>

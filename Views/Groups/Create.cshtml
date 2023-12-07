@@ -1,0 +1,27 @@
+﻿@model WebPulse_WebManager.Models.Group
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_CRUD";
+}
+
+<h1>Create</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            @await Html.PartialAsync("./Components/Form.cshtml", Model)
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

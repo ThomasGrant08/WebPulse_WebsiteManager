@@ -1,0 +1,11 @@
+﻿@model ApplicationUser
+
+@{
+
+}
+
+<div class="card">
+    <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+        <img src="@(Model.ProfilePicture == null?  "https://placehold.co/600x400?text=" + Model.NormalizedUserName.ToCharArray()[0] : "")" />
+    </div>
+</div>

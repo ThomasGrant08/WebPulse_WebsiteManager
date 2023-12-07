@@ -1,0 +1,157 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebPulse_WebManager
+build_property.RootNamespace = WebPulse_WebManager
+build_property.ProjectDir = C:\Users\ThomasGrant\source\repos\WebPulse_WebManager\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Users\ThomasGrant\source\repos\WebPulse_WebManager
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Credentials/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Credentials/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Credentials/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Credentials/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Credentials/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Components/Form.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXENvbXBvbmVudHNcRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Groups/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/FooterScripts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcRm9vdGVyU2NyaXB0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/GroupCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcR3JvdXBDYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/HeaderConfig.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcSGVhZGVyQ29uZmlnLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTmF2YmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcU2lkZWJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Components/UserCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcVXNlckNhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_CRUD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DUlVELmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9EYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_PrivateLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcml2YXRlTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Websites/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2Vic2l0ZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Websites/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2Vic2l0ZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Websites/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2Vic2l0ZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Websites/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2Vic2l0ZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Websites/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2Vic2l0ZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThomasGrant/source/repos/WebPulse_WebManager/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-1cbvvzrfxf

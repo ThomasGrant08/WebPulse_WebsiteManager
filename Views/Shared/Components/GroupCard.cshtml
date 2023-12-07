@@ -1,0 +1,11 @@
+﻿@model Group;
+
+<a href="@Url.ActionLink("Dashboard","Groups", new { id = Model.Id })">
+    <div class="card">
+        <div class="card-body position-relative z-index-1">
+
+            <span class="text-gradient text-primary text-uppercase text-xl font-weight-bold my-2">@Model.Name</span>
+
+        </div>
+    </div>
+</a>
