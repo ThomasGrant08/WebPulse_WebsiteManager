@@ -884,7 +884,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.Internal/7.0.5": {
+      "Microsoft.AspNetCore.Cryptography.Internal/7.0.12": {
         "type": "package",
         "compile": {
           "lib/net7.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -897,10 +897,10 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Cryptography.KeyDerivation/7.0.5": {
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/7.0.12": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.Internal": "7.0.5"
+          "Microsoft.AspNetCore.Cryptography.Internal": "7.0.12"
         },
         "compile": {
           "lib/net7.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
@@ -932,11 +932,11 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.5": {
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.12": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
-          "Microsoft.Extensions.Identity.Stores": "7.0.5"
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.12",
+          "Microsoft.Extensions.Identity.Stores": "7.0.12"
         },
         "compile": {
           "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
@@ -949,11 +949,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Identity.UI/7.0.5": {
+      "Microsoft.AspNetCore.Identity.UI/7.0.12": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Embedded": "7.0.5",
-          "Microsoft.Extensions.Identity.Stores": "7.0.5"
+          "Microsoft.Extensions.FileProviders.Embedded": "7.0.12",
+          "Microsoft.Extensions.Identity.Stores": "7.0.12"
         },
         "compile": {
           "lib/net7.0/Microsoft.AspNetCore.Identity.UI.dll": {
@@ -1929,7 +1929,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Microsoft.Extensions.FileProviders.Embedded/7.0.5": {
+      "Microsoft.Extensions.FileProviders.Embedded/7.0.12": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "7.0.0"
@@ -1970,10 +1970,10 @@
           }
         }
       },
-      "Microsoft.Extensions.Identity.Core/7.0.5": {
+      "Microsoft.Extensions.Identity.Core/7.0.12": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "7.0.5",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "7.0.12",
           "Microsoft.Extensions.Logging": "7.0.0",
           "Microsoft.Extensions.Options": "7.0.1"
         },
@@ -1988,11 +1988,11 @@
           }
         }
       },
-      "Microsoft.Extensions.Identity.Stores/7.0.5": {
+      "Microsoft.Extensions.Identity.Stores/7.0.12": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "7.0.0",
-          "Microsoft.Extensions.Identity.Core": "7.0.5",
+          "Microsoft.Extensions.Identity.Core": "7.0.12",
           "Microsoft.Extensions.Logging": "7.0.0"
         },
         "compile": {
@@ -5293,10 +5293,10 @@
         "logo.png"
       ]
     },
-    "Microsoft.AspNetCore.Cryptography.Internal/7.0.5": {
-      "sha512": "fevCVLxTfSsJEGtxNJlNYYzHhXWN8Uw2+qdi3VGzSoWSv114xTszRuRdGXUEVRmA+fYcQ9aRYqsvfVLtZi+VcQ==",
+    "Microsoft.AspNetCore.Cryptography.Internal/7.0.12": {
+      "sha512": "Dkoz1TOzucnarpOWLFiHwtASWnYT0r6FDMH9BoN9UXJD06yl1jvBk8loI92XUShoHcNJR8a+/VknqYv6yz5ssQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.cryptography.internal/7.0.5",
+      "path": "microsoft.aspnetcore.cryptography.internal/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5308,14 +5308,14 @@
         "lib/net7.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
-        "microsoft.aspnetcore.cryptography.internal.7.0.5.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.internal.7.0.12.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.internal.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Cryptography.KeyDerivation/7.0.5": {
-      "sha512": "OZ6lOoh6R+Uow4ZhCGpzT0Ji19ZH5no8/x+i8/I7lbYYJwOC51XxoP5xfI8gyqXJEigkod0j9+ZZ/pAKqoeTsg==",
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/7.0.12": {
+      "sha512": "VI5cyyM3u9UWbRJqvCH3BuTgw9fAynH9M9AqnAQ8fz4M37dPOkIkGAQ0CwCcLUdHnrdA1bEHANScAGI+LVkYgw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.cryptography.keyderivation/7.0.5",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5327,7 +5327,7 @@
         "lib/net7.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
-        "microsoft.aspnetcore.cryptography.keyderivation.7.0.5.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.keyderivation.7.0.12.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
@@ -5346,10 +5346,10 @@
         "microsoft.aspnetcore.diagnostics.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.5": {
-      "sha512": "HcTFkwn3P+60CXbl+ZSbVvOPrCZZIAKCqfVZRMEmY23MnuIXr0TVIdLojznBtf0KRIXkb6rZKbXhhiLU87dm7A==",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/7.0.12": {
+      "sha512": "nGd88OCX4pvMeWdwigTUarFlaQtl+dr3vRawiemvVjuvJlrdal+Dr9Qbi+l6VZX9i1myDQW/dXA1zrMTB1o0Ow==",
       "type": "package",
-      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.5",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5357,14 +5357,14 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
         "lib/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
-        "microsoft.aspnetcore.identity.entityframeworkcore.7.0.5.nupkg.sha512",
+        "microsoft.aspnetcore.identity.entityframeworkcore.7.0.12.nupkg.sha512",
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Identity.UI/7.0.5": {
-      "sha512": "OMq8uXQeoL82hlAT96OW4/dh9OalCWOF5G02vlBrZG2+9PREhkOFz9h8zTeqciXUUTSpr06BR18yjCPqOUJnmQ==",
+    "Microsoft.AspNetCore.Identity.UI/7.0.12": {
+      "sha512": "VA07IqwR3Z6yXDsstLKTqPIuCxO9datuIUTKqzhpj9Lnrih+rtHjJIxvOgqInL2SqbMqh2amMkdwrwLGTqVYzA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.identity.ui/7.0.5",
+      "path": "microsoft.aspnetcore.identity.ui/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5379,7 +5379,7 @@
         "buildTransitive/Microsoft.AspNetCore.Identity.UI.targets",
         "lib/net7.0/Microsoft.AspNetCore.Identity.UI.dll",
         "lib/net7.0/Microsoft.AspNetCore.Identity.UI.xml",
-        "microsoft.aspnetcore.identity.ui.7.0.5.nupkg.sha512",
+        "microsoft.aspnetcore.identity.ui.7.0.12.nupkg.sha512",
         "microsoft.aspnetcore.identity.ui.nuspec",
         "staticwebassets/V4/css/site.css",
         "staticwebassets/V4/favicon.ico",
@@ -6720,10 +6720,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.FileProviders.Embedded/7.0.5": {
-      "sha512": "E6enL5sLbxKjAWyUxthcOxlDYR6OT+wUBj42EpTR3j/cKI+UOkGCW7cSm8F9yQi9KxeM4Iq8dKZd13gMwYE+6Q==",
+    "Microsoft.Extensions.FileProviders.Embedded/7.0.12": {
+      "sha512": "Af3M929S/v2NIBfYxRAp+muDKm3nn6KLbtFuFRm0Q6yZKIC/lQovmUHL5c7sycbMjo/gpmR+6w5IcLS/FEm+pw==",
       "type": "package",
-      "path": "microsoft.extensions.fileproviders.embedded/7.0.5",
+      "path": "microsoft.extensions.fileproviders.embedded/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6738,7 +6738,7 @@
         "lib/net7.0/Microsoft.Extensions.FileProviders.Embedded.xml",
         "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Embedded.dll",
         "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Embedded.xml",
-        "microsoft.extensions.fileproviders.embedded.7.0.5.nupkg.sha512",
+        "microsoft.extensions.fileproviders.embedded.7.0.12.nupkg.sha512",
         "microsoft.extensions.fileproviders.embedded.nuspec",
         "tasks/netstandard2.0/Microsoft.Extensions.FileProviders.Embedded.Manifest.Task.dll"
       ]
@@ -6759,10 +6759,10 @@
         "packageIcon.png"
       ]
     },
-    "Microsoft.Extensions.Identity.Core/7.0.5": {
-      "sha512": "3fK2nd/3pJaT6jHNhwbSQS19Xxb4D3nsMrj0Vhag/rGk3GwVZusSWbtpnP2Li9Jl6BcJrRP+7M3jCmyVUYloeQ==",
+    "Microsoft.Extensions.Identity.Core/7.0.12": {
+      "sha512": "R6my15aCB3VM/eLYgpleY2t/27LtpuuU5Dpa7tx/bwTUhl+P2ZcxK712IieTdWu223XvgHAC8wBj7JYZUuoMwA==",
       "type": "package",
-      "path": "microsoft.extensions.identity.core/7.0.5",
+      "path": "microsoft.extensions.identity.core/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6774,14 +6774,14 @@
         "lib/net7.0/Microsoft.Extensions.Identity.Core.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Core.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Core.xml",
-        "microsoft.extensions.identity.core.7.0.5.nupkg.sha512",
+        "microsoft.extensions.identity.core.7.0.12.nupkg.sha512",
         "microsoft.extensions.identity.core.nuspec"
       ]
     },
-    "Microsoft.Extensions.Identity.Stores/7.0.5": {
-      "sha512": "IRLvTWiZ9lnkMrj6f3dh+NAOpnhUhMAPTmEOC6dzhXbVvX36dUElIQe6EzNsl9T93tMtgXgnrOAkj/UPutzZWQ==",
+    "Microsoft.Extensions.Identity.Stores/7.0.12": {
+      "sha512": "+9Qydkst50JAbeXfkK+A4pu6apPYuoD8OuCuGQ/aPYrRNlNFRaxZNIQuoatOnrr9tumbbvGFWH0reaKls4H8nA==",
       "type": "package",
-      "path": "microsoft.extensions.identity.stores/7.0.5",
+      "path": "microsoft.extensions.identity.stores/7.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6793,7 +6793,7 @@
         "lib/net7.0/Microsoft.Extensions.Identity.Stores.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Stores.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Identity.Stores.xml",
-        "microsoft.extensions.identity.stores.7.0.5.nupkg.sha512",
+        "microsoft.extensions.identity.stores.7.0.12.nupkg.sha512",
         "microsoft.extensions.identity.stores.nuspec"
       ]
     },
@@ -12224,8 +12224,8 @@
     "net7.0": [
       "AspNetCore.SassCompiler >= 1.69.5",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 7.0.5",
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.5",
-      "Microsoft.AspNetCore.Identity.UI >= 7.0.5",
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.12",
+      "Microsoft.AspNetCore.Identity.UI >= 7.0.12",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 7.0.14",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.12",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.12",
@@ -12241,11 +12241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj",
+      "projectUniqueName": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj",
       "projectName": "WebPulse_WebManager",
-      "projectPath": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj",
+      "projectPath": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj",
       "packagesPath": "C:\\Users\\ThomasGrant\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\obj\\",
+      "outputPath": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -12289,11 +12289,11 @@
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[7.0.5, )"
+            "version": "[7.0.12, )"
           },
           "Microsoft.AspNetCore.Identity.UI": {
             "target": "Package",
-            "version": "[7.0.5, )"
+            "version": "[7.0.12, )"
           },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",

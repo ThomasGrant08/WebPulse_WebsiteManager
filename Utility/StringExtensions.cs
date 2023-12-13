@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using System.Text;
+using WebPulse_WebManager.Enums;
 
 namespace WebPulse_WebManager.Utility
 {
@@ -27,5 +28,19 @@ namespace WebPulse_WebManager.Utility
 
             return sb.ToString();
         }
+
+
+        public static string GenerateRandomUsername()
+        {
+            string username = string.Empty;
+
+            string adjective = EnumExtensions.GetRandomEnumValue<ApprovedAdjectives>().ToString();
+            string noun = EnumExtensions.GetRandomEnumValue<ApprovedNouns>().ToString();
+
+            username = adjective + noun;
+            return username;
+        }
+
+
     }
 }

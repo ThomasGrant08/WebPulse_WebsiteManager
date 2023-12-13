@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj": {}
+    "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj": {
+    "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj",
+        "projectUniqueName": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj",
         "projectName": "WebPulse_WebManager",
-        "projectPath": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\WebPulse_WebManager.csproj",
+        "projectPath": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\WebPulse_WebManager.csproj",
         "packagesPath": "C:\\Users\\ThomasGrant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ThomasGrant\\source\\repos\\WebPulse_WebManager\\obj\\",
+        "outputPath": "C:\\Users\\ThomasGrant\\Documents\\Github\\WebPulse_WebsiteManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -55,11 +55,11 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",

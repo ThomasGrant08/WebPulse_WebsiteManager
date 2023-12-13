@@ -11,13 +11,7 @@
     @foreach (ApplicationUser user in Model.AssignedUsers)
     {
         <div class="col-3">
-            <div class="card h-100">
-                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-                    <span>@user.UserName</span>
-                </div>
-                <div class="card-body pt-2">
-                </div>
-            </div>
+            @Html.Partial("./Components/UserCard", user)
         </div>
     }
     <div class="col-3">

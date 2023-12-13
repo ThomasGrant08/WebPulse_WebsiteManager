@@ -8,7 +8,7 @@
 {
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name! <br/>
-                <span>@StringExtensions.SpaceCamelCase(UserManager.GetRolesAsync(UserManager.FindByEmailAsync(User.Identity?.Name).Result).Result.FirstOrDefault())</span>
+                <span>@StringExtensions.SpaceCamelCase(UserManager.GetRolesAsync(UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result).Result.FirstOrDefault())</span>
             </a>
         
     </li>
