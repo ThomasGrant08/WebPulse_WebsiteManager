@@ -17,7 +17,7 @@
 <div class="row">
     @foreach (var Group in Model.Groups)
     {
-        <div class="col-3">
+        <div class="col-md-3 col-xs-12 col-xl-2 m-1">
             @Html.Partial("./Components/GroupCard", Group)
         </div>
     }

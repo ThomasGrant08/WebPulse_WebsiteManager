@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-        <img src="@(Model.ProfilePicture == null?  "https://placehold.co/600x400/cb0c9f/white?text=" + Model.NormalizedUserName.ToCharArray()[0] : "")" class="avatar avatar-xl shadow mx-auto d-block" style="object-fit: cover;" />
+        <img src="@(Model.ProfilePicture == null?  "https://placehold.co/600x400/cb0c9f/white?text=" + Model.NormalizedUserName.ToCharArray()[0] : "")" class="avatar avatar-xl rounded-circle shadow mx-auto d-block w-100" style="object-fit: cover;" />
     </div>
     <div class="card-body">
         <h4 class="card-title text-center">@Model.UserName</h4>

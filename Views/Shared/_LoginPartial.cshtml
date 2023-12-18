@@ -3,11 +3,18 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 
+@{
+    var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
+    var role = await UserManager.GetUsersInRoleAsync("SystemOwner");
+    var isOwner = role.Contains(user);
+}
+
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name! <br/>
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(isOwner ? user.UserName : user.GetUsername()) <br/>
                 <span>@StringExtensions.SpaceCamelCase(UserManager.GetRolesAsync(UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result).Result.FirstOrDefault())</span>
             </a>
         
