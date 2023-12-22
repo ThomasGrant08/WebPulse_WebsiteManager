@@ -109,4 +109,12 @@ namespace WebPulse_WebManager.Enums
         Birch,
         Oak
     }
+
+    public enum CrudActionType
+    {
+        CREATE,
+        READ,
+        UPDATE,
+        DELETE
+    }
 }

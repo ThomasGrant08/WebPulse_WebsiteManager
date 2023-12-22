@@ -13,6 +13,9 @@ namespace WebPulse_WebManager.Data
         public DbSet<WebPulse_WebManager.Models.Group> Group { get; set; } = default!;
         public DbSet<WebPulse_WebManager.Models.Website> Website { get; set; } = default!;
         public DbSet<WebPulse_WebManager.Models.Credential> Credential { get; set; } = default!;
+        public DbSet<WebPulse_WebManager.Models.Invitation> Invitation { get; set; } = default!;
+        public DbSet<WebPulse_WebManager.Models.SystemLog> SystemLog { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
