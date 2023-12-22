@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
 using System.Security.Claims;
+using WebPulse_WebManager.BackgroundServices;
 using WebPulse_WebManager.Data;
 using WebPulse_WebManager.Models;
+using WebPulse_WebManager.Services;
 using WebPulse_WebManager.Utility;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -25,7 +29,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<PermissionHelper>();
-builder.Services.AddScoped<MenuHelper>();
+builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+
+
+builder.Services.AddScoped<CleanupService>();
+builder.Services.AddHostedService<CleanupBackgroundService>();
 
 var app = builder.Build();
 
@@ -45,6 +53,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 
 app.UseAuthorization();
 

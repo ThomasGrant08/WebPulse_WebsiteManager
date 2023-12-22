@@ -1,14 +1,18 @@
 ﻿@model ApplicationUser
 
 @{
-
+    string image = ImageUtilities.GetGravatarImage(Model.Email);
+    if(String.IsNullOrEmpty(image))
+    {
+        image = Model.ProfilePicture == null ? "https://placehold.co/600x400/cb0c9f/white?text=" + Model.NormalizedUserName.ToCharArray()[0] : "";
+    }
 }
 
-<div class="card">
-    <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
-        <img src="@(Model.ProfilePicture == null?  "https://placehold.co/600x400/cb0c9f/white?text=" + Model.NormalizedUserName.ToCharArray()[0] : "")" class="avatar avatar-xl rounded-circle shadow mx-auto d-block w-100" style="object-fit: cover;" />
+<div class="card h-100 user-card">
+    <div class="profile-image avatar avatar-xxl rounded-circle mx-auto d-flex w-100 position-absolute justify-content-center align-items-center" style="left: 50%; top: 0; transform: translate(-50%, -50%);">
+        <img src="@image" class="h-90 w-90" style="object-fit: cover; pointer-events: none;" />
     </div>
-    <div class="card-body">
-        <h4 class="card-title text-center">@Model.UserName</h4>
+    <div class="card-body pt-5 mt-5">
+        <h5 class="card-title text-center">@Model.UserName</h5>
     </div>
 </div>
