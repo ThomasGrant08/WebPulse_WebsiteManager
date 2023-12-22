@@ -1,0 +1,49 @@
+﻿@model WebPulse_WebManager.Models.Website
+
+@{
+
+}
+
+<h4>Website</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Name) })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "invalid-feedback" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Url, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Url) })
+            @Html.ValidationMessageFor(m => m.Url, "", new { @class = "invalid-feedback" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.GroupId, new SelectList(ViewBag.GroupId, "Id", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.GroupId, "", new { @class = "invalid-feedback" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+
+<div>
+    <a href="@Url.Action("Dashboard","Groups")">Back to Dashboard</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -163,7 +163,7 @@ namespace WebPulse_WebManager.Controllers
                 Description = group.Description,
             };
 
-            ViewBag.Image = Convert.ToBase64String(group.Image);
+            ViewBag.Image = group.Image != null ? Convert.ToBase64String(group.Image) : "";
 
             return View(viewModel);
         }
