@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <div class="form-group">
-            <label for="Image">Image</label>
+            <label for="Image">Banner Image</label>
             <input type="file" id="Image" accept="image/*" class="form-control" asp-for="Image" />
             <img src="@("data:image/jpeg;base64," + ViewBag.Image)" alt="Selected Image" class="img-fluid mt-2" style="max-width: 150px;" />
             @Html.ValidationMessageFor(m => m.Image, "", new { @class = "invalid-feedback" })
