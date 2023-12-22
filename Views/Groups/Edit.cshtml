@@ -1,4 +1,4 @@
-﻿@model Group;
+﻿@model GroupFormViewModel;
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             @await Html.PartialAsync("./Components/Form.cshtml", Model)
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

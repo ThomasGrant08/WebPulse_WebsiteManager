@@ -12,6 +12,8 @@ namespace WebPulse_WebManager.Models
 
         public virtual List<Website> Websites { get; set; } = new List<Website>();
 
+        public byte[] Image { get; set; } = null!;
+
         #endregion
     }
 }

@@ -2,10 +2,15 @@
 
 <a href="@Url.ActionLink("Dashboard","Groups", new { id = Model.Id })">
     <div class="card">
+        @if (!String.IsNullOrEmpty(Convert.ToBase64String(Model.Image)))
+        {
+            <div class="card-img-top">
+                <img src="@("data:image/jpeg;base64," + Convert.ToBase64String(Model.Image))" alt="Group Image" class="img-fluid" />
+            </div>
+        }
+        
         <div class="card-body position-relative z-index-1">
-
             <span class="text-gradient text-primary text-uppercase text-xl font-weight-bold my-2">@Model.Name</span>
-
         </div>
     </div>
 </a>

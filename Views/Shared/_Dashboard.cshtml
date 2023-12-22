@@ -2,10 +2,12 @@
 
 @{
     Layout = "_PrivateLayout";
+
+    string image = Model.Banner;
 }
 
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+<main class="main-content position-relative max-height-vh-100 h-100 ps ps--active-y">
+    <nav class="navbar navbar-main navbar-expand-lg px-4 shadow-none" id="navbarBlur" navbar-scroll="true">
         <div class="container-fluid py-1 px-3">
             <h6>@Model.SectionName</h6>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4">
@@ -16,6 +18,7 @@
         </div>
 
     </nav>
+    @RenderSection("Banner", required: false)
     <div class="container-fluid py-4">
         @RenderBody()
     </div>

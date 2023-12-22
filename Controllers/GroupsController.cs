@@ -67,7 +67,8 @@ namespace WebPulse_WebManager.Controllers
                 Name = group.Name,
                 Description = group.Description,
                 AssignedUsers = group.AssignedUsers,
-                Websites = group.Websites
+                Websites = group.Websites,
+                Banner = Convert.ToBase64String(group.Image)
             };
 
             return View(model);
@@ -81,8 +82,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Group
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var group = await _groupRepository.FindById(id.Value);
             if (group == null)
             {
                 return NotFound();
@@ -102,12 +102,19 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Group group)
+        public async Task<IActionResult> Create(GroupFormViewModel newGroup)
         {
             if (ModelState.IsValid)
             {
                 var userEmail = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == userEmail);
+
+                var group = new Group()
+                {
+                    Name = newGroup.Name,
+                    Description = newGroup.Description,
+                    Image = ImageUtilities.EncodeImageToBytes(newGroup.Image)
+                };
 
                 if (user != null)
                 {
@@ -133,7 +140,7 @@ namespace WebPulse_WebManager.Controllers
                     }
                 }
             }
-            return View();
+            return View(newGroup);
         }
 
         // GET: Groups/Edit/5
@@ -144,12 +151,21 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Group.FindAsync(id);
+            var group = await _groupRepository.FindById(id.Value);
             if (group == null)
             {
                 return NotFound();
             }
-            return View(group);
+
+            GroupFormViewModel viewModel = new GroupFormViewModel()
+            {
+                Name = group.Name,
+                Description = group.Description,
+            };
+
+            ViewBag.Image = Convert.ToBase64String(group.Image);
+
+            return View(viewModel);
         }
 
         // POST: Groups/Edit/5
@@ -157,23 +173,37 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Id,CreatedAt,LastUpdatedAt,DeletedAt")] Group group)
+        public async Task<IActionResult> Edit(int id, GroupFormViewModel newGroup)
         {
-            if (id != group.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(group);
-                    await _context.SaveChangesAsync();
+                    var updatedGroup = await _groupRepository.FindById(id);
+
+                    updatedGroup.Name = newGroup.Name;
+                    updatedGroup.Description = newGroup.Description;
+
+                    if(newGroup.Image != null)
+                    {
+                        updatedGroup.Image = ImageUtilities.EncodeImageToBytes(newGroup.Image);
+                    }
+
+                    
+
+                    if(await _groupRepository.Update(updatedGroup))
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        return Problem("Failed to update group.");
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GroupExists(group.Id))
+                    if (!GroupExists(id))
                     {
                         return NotFound();
                     }
@@ -182,9 +212,9 @@ namespace WebPulse_WebManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(group);
+            var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+            return BadRequest(errors);
         }
 
         // GET: Groups/Delete/5
@@ -195,8 +225,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Group
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var group = await _groupRepository.FindById(id.Value);
             if (group == null)
             {
                 return NotFound();
@@ -214,15 +243,19 @@ namespace WebPulse_WebManager.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Group' is null.");
             }
-            var group = await _context.Group.FindAsync(id);
+            var group = await _groupRepository.FindById(id);
             if (group != null)
             {
-                group.DeletedAt = DateTime.Now;
-                _context.Update(group);
+                if(await _groupRepository.Delete(group))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return Problem("Failed to delete group.");
+                }
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return BadRequest();
         }
 
         private bool GroupExists(int id)
@@ -251,15 +284,16 @@ namespace WebPulse_WebManager.Controllers
             if (user != null)
             {
                 group.AssignedUsers.Add(user);
-                _context.Update(group);
-                await _context.SaveChangesAsync();
+                if(await _groupRepository.Update(group))
+                {
+                    return RedirectToAction(nameof(Dashboard), new { id = id });
+                }
+                else
+                {
+                    return Problem("Failed to update group.");
+                }
             }
-            else
-            {
-                return BadRequest();
-            }
-
-            return RedirectToAction(nameof(Dashboard), new { id = id });
+            return BadRequest();
         }
     }
 }

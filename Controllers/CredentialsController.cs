@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -42,9 +44,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var credential = await _context.Credential
-                .Include(c => c.Website)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var credential = await _credentialRepository.FindById(id.Value);
             if (credential == null)
             {
                 return NotFound();
@@ -69,9 +69,29 @@ namespace WebPulse_WebManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(credential);
-                await _context.SaveChangesAsync();
+                var userEmail = User.FindFirstValue(ClaimTypes.Email);
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == userEmail);
+
+                if(user != null)
+                {
+                    credential.AssignedUsers.Add(user);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                await _credentialRepository.Insert(credential);
                 return RedirectToAction(nameof(Index));
+            } else
+            {
+                Debug.WriteLine("ModelState is invalid.");
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    foreach(var error in ModelState[modelStateKey].Errors)
+                    {
+                        Debug.WriteLine($"Key: {modelStateKey}, Error: {error.ErrorMessage}");
+                    }
+                }
             }
             ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
             return View(credential);
@@ -85,7 +105,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var credential = await _context.Credential.FindAsync(id);
+            var credential = await _credentialRepository.FindById(id.Value);
             if (credential == null)
             {
                 return NotFound();
@@ -110,8 +130,13 @@ namespace WebPulse_WebManager.Controllers
             {
                 try
                 {
-                    _context.Update(credential);
-                    await _context.SaveChangesAsync();
+                    if(await _credentialRepository.Update(credential))
+                    {
+                        return RedirectToAction(nameof(Index));
+                    } else
+                    {
+                        return Problem("Failed to update credential.");
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +149,7 @@ namespace WebPulse_WebManager.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
             }
             ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
             return View(credential);
@@ -138,9 +163,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var credential = await _context.Credential
-                .Include(c => c.Website)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var credential = await _credentialRepository.FindById(id.Value);
             if (credential == null)
             {
                 return NotFound();
@@ -158,14 +181,18 @@ namespace WebPulse_WebManager.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Credential'  is null.");
             }
-            var credential = await _context.Credential.FindAsync(id);
+            var credential = await _credentialRepository.FindById(id);
             if (credential != null)
             {
-                _context.Credential.Remove(credential);
+                if(await _credentialRepository.Delete(credential))
+                {
+                    return RedirectToAction(nameof(Index));
+                } else
+                {
+                    return Problem("Failed to delete credential.");
+                }
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return BadRequest();
         }
 
         private bool CredentialExists(int id)

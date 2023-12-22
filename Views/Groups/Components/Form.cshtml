@@ -1,12 +1,14 @@
-﻿@model WebPulse_WebManager.Models.Group;
+﻿@using System.IO;
+@using WebPulse_WebManager.Utility;
+@model WebPulse_WebManager.ViewModels.GroupFormViewModel;
 
 <h4>Group</h4>
 <hr />
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <div class="form-group">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Name)})
-            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "invalid-feedback"})
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Name) })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "invalid-feedback" })
         </div>
     </div>
 </div>
@@ -14,8 +16,17 @@
     <div class="col-md-6 col-xs-12">
         <div class="form-group">
             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Description) })
-            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "invalid-feedback"})
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "invalid-feedback" })
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" id="Image" accept="image/*" class="form-control" asp-for="Image" />
+            <img src="@("data:image/jpeg;base64," + ViewBag.Image)" alt="Selected Image" class="img-fluid mt-2" style="max-width: 150px;" />
+            @Html.ValidationMessageFor(m => m.Image, "", new { @class = "invalid-feedback" })
+        </div>
+    </div>
+</div>

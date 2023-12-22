@@ -10,6 +10,8 @@ namespace WebPulse_WebManager.ViewModels
 
         public string SectionUrl { get; set; }
 
+        public string Banner { get; set; } = string.Empty;
+
         #endregion
 
         #region Ctor

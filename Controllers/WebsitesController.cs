@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebPulse_WebManager.Data;
 using WebPulse_WebManager.Models;
+using WebPulse_WebManager.Repositories;
 
 namespace WebPulse_WebManager.Controllers
 {
     public class WebsitesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly WebsiteRepository _websiteRepository;
 
         public WebsitesController(ApplicationDbContext context)
         {
             _context = context;
+            _websiteRepository = new WebsiteRepository(_context);
         }
 
         // GET: Websites
@@ -34,9 +38,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var website = await _context.Website
-                .Include(w => w.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var website = await _websiteRepository.FindById(id.Value);
             if (website == null)
             {
                 return NotFound();
@@ -61,8 +63,17 @@ namespace WebPulse_WebManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(website);
-                await _context.SaveChangesAsync();
+                var userEmail = User.FindFirstValue(ClaimTypes.Email);
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == userEmail);
+
+                if(user != null)
+                {
+                    website.Users.Add(user);
+                } else
+                {
+                    return BadRequest();
+                }
+                website = await _websiteRepository.Insert(website);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id", website.GroupId);

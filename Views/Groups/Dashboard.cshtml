@@ -10,11 +10,11 @@
 <div class="row">
     @foreach (ApplicationUser user in Model.AssignedUsers)
     {
-        <div class="col-3">
+        <div class="col-md-3 col-xs-6 mt-5">
             @Html.Partial("./Components/UserCard", user)
         </div>
     }
-    <div class="col-3">
+    <div class="col-2">
         <div class="card h-100 opacity-5">
             <div class="card-body pt-2">
                 +
@@ -22,7 +22,6 @@
         </div>
     </div>
 </div>
-
 <form asp-action="InviteUser">
     <div class="form-group">
         <input type="text" name="Email" />
@@ -30,3 +29,9 @@
         <input type="submit" value="Invite" />
     </div>
 </form>
+
+@section Banner {
+    <div class="banner" style="background-image: url('data:image/jpeg;base64,@Model.Banner')">
+
+    </div>
+}

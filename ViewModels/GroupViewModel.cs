@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using WebPulse_WebManager.Models;
 
 namespace WebPulse_WebManager.ViewModels
@@ -23,7 +25,7 @@ namespace WebPulse_WebManager.ViewModels
 
     public class GroupViewModel : SectionViewModel
     {
-        #region
+        #region Properties
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -36,4 +38,18 @@ namespace WebPulse_WebManager.ViewModels
 
 
     }
+
+    public class GroupFormViewModel
+    {
+        #region Properties
+
+        [Required]
+        public string Name { get; set; }
+
+        public string Description { get; set; } = string.Empty!;
+        public IFormFile? Image { get; set; } = null!;
+
+        #endregion
+    }
+
 }
