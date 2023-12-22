@@ -42,8 +42,17 @@ namespace WebPulse_WebManager.Repositories
             oldEntity.Password = newEntity.Password;
             oldEntity.AssignedUsers = newEntity.AssignedUsers;
             oldEntity.Website = newEntity.Website;
+            oldEntity.LastUpdatedAt = newEntity.LastUpdatedAt;
 
             return await base.Update(oldEntity, newEntity);
+        }
+
+        public async Task<bool> Update(Credential newEntity)
+        {
+            Credential? oldEntity = await FindById(newEntity.Id);
+
+            if(oldEntity == null) return false;
+            return await Update(oldEntity, newEntity);
         }
     }
 }

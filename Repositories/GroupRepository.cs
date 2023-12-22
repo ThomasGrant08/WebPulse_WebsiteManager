@@ -20,7 +20,9 @@ namespace WebPulse_WebManager.Repositories
         }
         public override IEnumerable<Group> FindAll(int page = 0, int max = int.MaxValue, Func<Group, bool>? filter = null, Func<Group, dynamic>? order = null, bool orderAscending = true)
         {
-            IEnumerable<Group> query = _context.Group.Where(group => group.DeletedAt == null).Include(group => group.AssignedUsers).Include(group => group.Websites);
+            IEnumerable<Group> query = _context.Group.Where(group => group.DeletedAt == null)
+                                                        .Include(group => group.AssignedUsers)
+                                                        .Include(group => group.Websites);
 
             if (filter != null) query = query.Where(filter);
 
@@ -35,7 +37,10 @@ namespace WebPulse_WebManager.Repositories
 
         public override async Task<Group?> FindById(int id)
         {
-            return await _context.Group.Include(group => group.AssignedUsers).Include(group => group.Websites).Where(group => group.Id == id).FirstAsync();
+            return await _context.Group.Include(r => r.AssignedUsers)
+                                       .Include(group => group.Websites)
+                                       .Where(group => group.Id == id)
+                                       .FirstAsync();
         }
 
         public override async Task<Group> Insert(Group entity)
@@ -49,8 +54,16 @@ namespace WebPulse_WebManager.Repositories
             oldEntity.Description = newEntity.Description;
             oldEntity.AssignedUsers = newEntity.AssignedUsers;
             oldEntity.Websites = newEntity.Websites;
+            oldEntity.LastUpdatedAt = newEntity.LastUpdatedAt;
 
             return await base.Update(oldEntity, newEntity);
+        }
+        
+        public async Task<bool> Update(Group newEntity)
+        {
+            Group? oldEntity = await FindById(newEntity.Id);
+            if (oldEntity == null) return false;
+            return await Update(oldEntity, newEntity);
         }
 
     }
