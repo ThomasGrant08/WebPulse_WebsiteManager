@@ -13,7 +13,9 @@ namespace WebPulse_WebManager.Repositories
 
         public override IEnumerable<Credential> FindAll(int page = 0, int max = int.MaxValue, Func<Credential, bool>? filter = null, Func<Credential, dynamic>? order = null, bool orderAscending = true)
         {
-            IEnumerable<Credential> query = _context.Credential.Include(credential => credential.AssignedUsers).Include(credential => credential.Website);
+            IEnumerable<Credential> query = _context.Credential.Where(credential => credential.DeletedAt == null)
+                                                                    .Include(credential => credential.AssignedUsers)
+                                                                    .Include(credential => credential.Website);
 
             if(filter != null) query = query.Where(filter);
 

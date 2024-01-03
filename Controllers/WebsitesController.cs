@@ -4,11 +4,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebPulse_WebManager.Data;
 using WebPulse_WebManager.Models;
 using WebPulse_WebManager.Repositories;
+using WebPulse_WebManager.Utility;
+using WebPulse_WebManager.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebPulse_WebManager.Controllers
 {
@@ -16,18 +20,35 @@ namespace WebPulse_WebManager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly WebsiteRepository _websiteRepository;
+        private readonly GroupRepository _groupRepository;
+        private readonly PermissionHelper _permissionHelper;
 
-        public WebsitesController(ApplicationDbContext context)
+        public WebsitesController(ApplicationDbContext context, PermissionHelper permissionHelper)
         {
             _context = context;
             _websiteRepository = new WebsiteRepository(_context);
+            _groupRepository = new GroupRepository(_context);
+            _permissionHelper = permissionHelper;
         }
 
         // GET: Websites
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Website.Include(w => w.Group);
-            return View(await applicationDbContext.ToListAsync());
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var viewModel = new WebsiteIndexViewMode();
+
+            if (await _permissionHelper.IsUserGlobalAdminOrOwnerAsync() && await _permissionHelper.IsGodModeOn())
+            {
+                viewModel.Websites = _websiteRepository.FindAll().ToList();
+            }
+            else
+            {
+                Func<Website, bool> userAssignedFilter = website => website.Users.Any(user => user.Id == currentUserId);
+                viewModel.Websites = _websiteRepository.FindAll(filter: userAssignedFilter).ToList();
+            }
+
+            return View(viewModel);
         }
 
         // GET: Websites/Details/5
@@ -50,7 +71,9 @@ namespace WebPulse_WebManager.Controllers
         // GET: Websites/Create
         public IActionResult Create()
         {
-            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            ViewData["GroupId"] = new SelectList(_groupRepository.FindAll(filter: group => group.AssignedUsers.Any(user => user.Id == currentUserId)), "Id", "Name");
             return View();
         }
 
@@ -59,10 +82,16 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Url,GroupId,Id,CreatedAt,LastUpdatedAt,DeletedAt")] Website website)
+        public async Task<IActionResult> Create(Website website)
         {
+
+            ModelState.Remove<Website>(w => w.CreatedAt);
+            ModelState.Remove<Website>(w => w.LastUpdatedAt);
+            ModelState.Remove<Website>(w => w.Group);
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (ModelState.IsValid)
             {
+
                 var userEmail = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == userEmail);
 
@@ -76,24 +105,25 @@ namespace WebPulse_WebManager.Controllers
                 website = await _websiteRepository.Insert(website);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id", website.GroupId);
+            ViewData["GroupId"] = new SelectList(_groupRepository.FindAll(filter: group => group.AssignedUsers.Any(user => user.Id == currentUserId)), "Id", "Name");
             return View(website);
         }
 
         // GET: Websites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (id == null || _context.Website == null)
             {
                 return NotFound();
             }
 
-            var website = await _context.Website.FindAsync(id);
+            var website = await _websiteRepository.FindById(id.Value);
             if (website == null)
             {
                 return NotFound();
             }
-            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id", website.GroupId);
+            ViewData["GroupId"] = new SelectList(_groupRepository.FindAll(filter: group => group.AssignedUsers.Any(user => user.Id == currentUserId)), "Id", "Name");
             return View(website);
         }
 
@@ -102,12 +132,16 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Url,GroupId,Id,CreatedAt,LastUpdatedAt,DeletedAt")] Website website)
+        public async Task<IActionResult> Edit(int id, Website website)
         {
             if (id != website.Id)
             {
                 return NotFound();
             }
+
+            ModelState.Remove<Website>(w => w.CreatedAt);
+            ModelState.Remove<Website>(w => w.LastUpdatedAt);
+            ModelState.Remove<Website>(w => w.Group);
 
             if (ModelState.IsValid)
             {
@@ -129,7 +163,8 @@ namespace WebPulse_WebManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id", website.GroupId);
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            ViewData["GroupId"] = new SelectList(_groupRepository.FindAll(filter: group => group.AssignedUsers.Any(user => user.Id == currentUserId)), "Id", "Name");
             return View(website);
         }
 
@@ -141,9 +176,7 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            var website = await _context.Website
-                .Include(w => w.Group)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var website = await _websiteRepository.FindById(id.Value);
             if (website == null)
             {
                 return NotFound();
@@ -161,13 +194,11 @@ namespace WebPulse_WebManager.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Website'  is null.");
             }
-            var website = await _context.Website.FindAsync(id);
+            var website = await _websiteRepository.FindById(id);
             if (website != null)
             {
-                _context.Website.Remove(website);
+                await _websiteRepository.Delete(website);
             }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

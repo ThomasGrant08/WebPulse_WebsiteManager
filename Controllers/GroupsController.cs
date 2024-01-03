@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace WebPulse_WebManager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly GroupRepository _groupRepository;
-        private readonly PermissionHelper _permissionHelper; // Add PermissionHelper as a dependency
+        private readonly PermissionHelper _permissionHelper;
 
         public GroupsController(ApplicationDbContext context, PermissionHelper permissionHelper)
         {
@@ -68,7 +69,7 @@ namespace WebPulse_WebManager.Controllers
                 Description = group.Description,
                 AssignedUsers = group.AssignedUsers,
                 Websites = group.Websites,
-                Banner = Convert.ToBase64String(group.Image)
+                Banner = group.Image != null ? Convert.ToBase64String(group.Image) : null
             };
 
             return View(model);

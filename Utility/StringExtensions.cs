@@ -41,6 +41,23 @@ namespace WebPulse_WebManager.Utility
             return username;
         }
 
+        public static string Invert(this string value)
+        {
+            char[] charArray = value.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
 
+        public static string Uglify(this string value)
+        {
+            string uglyString = string.Empty;
+
+            foreach (char c in value)
+            {
+                uglyString += c + " ";
+            }
+
+            return uglyString;
+        }
     }
 }

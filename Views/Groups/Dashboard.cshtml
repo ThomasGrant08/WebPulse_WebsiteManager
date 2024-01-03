@@ -31,7 +31,11 @@
 </form>
 
 @section Banner {
-    <div class="banner" style="background-image: url('data:image/jpeg;base64,@Model.Banner')">
 
-    </div>
+    @if(!String.IsNullOrEmpty(Model.Banner))
+    {
+        <div class="banner" style="background-image: url('data:image/jpeg;base64,@Model.Banner')">
+        </div>
+    }
+    
 }

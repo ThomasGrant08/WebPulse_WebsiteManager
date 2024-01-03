@@ -5,11 +5,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebPulse_WebManager.Data;
 using WebPulse_WebManager.Models;
 using WebPulse_WebManager.Repositories;
+using WebPulse_WebManager.Utility;
 using WebPulse_WebManager.ViewModels;
 
 namespace WebPulse_WebManager.Controllers
@@ -18,20 +20,33 @@ namespace WebPulse_WebManager.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly CredentialRepository _credentialRepository;
+        private readonly WebsiteRepository _websiteRepository;
+        private readonly PermissionHelper _permissionHelper;
 
-        public CredentialsController(ApplicationDbContext context)
+        public CredentialsController(ApplicationDbContext context, PermissionHelper permissionHelper)
         {
             _context = context;
             _credentialRepository = new CredentialRepository(_context);
+            _websiteRepository = new WebsiteRepository(_context);
+            _permissionHelper = permissionHelper;
         }
 
         // GET: Credentials
         public async Task<IActionResult> Index()
         {
-            CredentialsIndexViewModel model = new CredentialsIndexViewModel()
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            CredentialsIndexViewModel model = new CredentialsIndexViewModel();
+
+            if (await _permissionHelper.IsUserGlobalAdminOrOwnerAsync() && await _permissionHelper.IsGodModeOn())
             {
-                Credentials = _credentialRepository.FindAll().ToList()
-            };
+                model.Credentials = _credentialRepository.FindAll().ToList();
+            }
+            else
+            {
+                Func<Credential, bool> userAssignedFilter = credential => credential.AssignedUsers.Any(user => user.Id == currentUserId);
+                model.Credentials = _credentialRepository.FindAll(filter: userAssignedFilter).ToList();
+            }
 
             return View(model);
         }
@@ -54,9 +69,16 @@ namespace WebPulse_WebManager.Controllers
         }
 
         // GET: Credentials/Create
-        public IActionResult Create()
+        public IActionResult Create(int? group)
         {
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id");
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Func<Website, bool> assignedFilter = website => website.Users.Any(user => user.Id == currentUserId);
+            if (group != null)
+            {
+                assignedFilter = website => website.Users.Any(user => user.Id == currentUserId) && website.Group.Id == group;
+            }
+            
+            ViewData["WebsiteId"] = new SelectList(_websiteRepository.FindAll(filter: assignedFilter), "Id", "Name");
             return View();
         }
 
@@ -65,8 +87,15 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Username,Password,WebsiteId,Id,CreatedAt,LastUpdatedAt,DeletedAt")] Credential credential)
+        public async Task<IActionResult> Create(Credential credential)
         {
+            ModelState.Remove<Credential>(c => c.CreatedAt);
+            ModelState.Remove<Credential>(c => c.LastUpdatedAt);
+            ModelState.Remove<Credential>(c => c.Website);
+            ModelState.Remove<Credential>(c => c.Valid);
+
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             if (ModelState.IsValid)
             {
                 var userEmail = User.FindFirstValue(ClaimTypes.Email);
@@ -93,7 +122,11 @@ namespace WebPulse_WebManager.Controllers
                     }
                 }
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
+
+            Func<Website, bool> assignedFilter = website => website.Users.Any(user => user.Id == currentUserId);
+            ViewData["WebsiteId"] = new SelectList(_websiteRepository.FindAll(filter: assignedFilter), "Id", "Name", credential.WebsiteId);
+
+            
             return View(credential);
         }
 
@@ -119,12 +152,17 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Username,Password,WebsiteId,Id,CreatedAt,LastUpdatedAt,DeletedAt")] Credential credential)
+        public async Task<IActionResult> Edit(int id,Credential credential)
         {
             if (id != credential.Id)
             {
                 return NotFound();
             }
+
+            ModelState.Remove<Credential>(c => c.CreatedAt);
+            ModelState.Remove<Credential>(c => c.LastUpdatedAt);
+            ModelState.Remove<Credential>(c => c.Website);
+            ModelState.Remove<Credential>(c => c.Valid);
 
             if (ModelState.IsValid)
             {
@@ -150,6 +188,16 @@ namespace WebPulse_WebManager.Controllers
                     }
                 }
 
+            } else
+            {
+                Debug.WriteLine("ModelState is invalid.");
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    foreach (var error in ModelState[modelStateKey].Errors)
+                    {
+                        Debug.WriteLine($"Key: {modelStateKey}, Error: {error.ErrorMessage}");
+                    }
+                }
             }
             ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
             return View(credential);

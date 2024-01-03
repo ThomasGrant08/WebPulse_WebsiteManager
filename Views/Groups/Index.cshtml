@@ -29,7 +29,7 @@
 @foreach (var item in Model.Groups) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "Dashboard", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
