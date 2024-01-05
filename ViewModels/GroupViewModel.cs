@@ -34,6 +34,8 @@ namespace WebPulse_WebManager.ViewModels
 
         public List<Website> Websites { get; set; } = new List<Website>();
 
+        public List<Credential> Credentials { get; set; } = new List<Credential>();
+
         #endregion
 
 

@@ -22,12 +22,14 @@ namespace WebPulse_WebManager.Controllers
         private readonly WebsiteRepository _websiteRepository;
         private readonly GroupRepository _groupRepository;
         private readonly PermissionHelper _permissionHelper;
+        private readonly CredentialRepository _credentialRepository;
 
         public WebsitesController(ApplicationDbContext context, PermissionHelper permissionHelper)
         {
             _context = context;
             _websiteRepository = new WebsiteRepository(_context);
             _groupRepository = new GroupRepository(_context);
+            _credentialRepository = new CredentialRepository(_context);
             _permissionHelper = permissionHelper;
         }
 
@@ -65,7 +67,21 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            return View(website);
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            WebsiteViewModel viewModel = new WebsiteViewModel()
+            {
+                Id = website.Id,
+                Name = website.Name,
+                Url = website.Url,
+                Group = website.Group,
+                Credentials = (await _permissionHelper.IsUserGlobalAdminOrOwnerAsync() && await _permissionHelper.IsGodModeOn())
+                    ? _credentialRepository.FindAll(filter: (credential => credential.Website == website)).ToList()
+                    : _credentialRepository.FindAll(filter: (credential => credential.Website == website && credential.AssignedUsers.Any(user => user.Id == currentUserId))).ToList(),
+                Users = website.Users
+            };
+
+
+            return View(viewModel);
         }
 
         // GET: Websites/Create

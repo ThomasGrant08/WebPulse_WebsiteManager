@@ -1,0 +1,10 @@
+﻿@model Website;
+
+<a href="@Url.Action("Details", "Websites", new { id = Model.Id })" class="card h-100 website-card">
+    <div class="card-body">
+        <span>
+            <span class="h2">@Model.Name.First()</span>
+            <span class="h6">@Model.Name.Substring(1)</span>
+        </span>
+    </div>
+</a>

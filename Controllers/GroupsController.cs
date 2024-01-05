@@ -21,12 +21,16 @@ namespace WebPulse_WebManager.Controllers
         private readonly ApplicationDbContext _context;
         private readonly GroupRepository _groupRepository;
         private readonly PermissionHelper _permissionHelper;
+        private readonly WebsiteRepository _websiteRepository;
+        private readonly CredentialRepository _credentialRepository;
 
         public GroupsController(ApplicationDbContext context, PermissionHelper permissionHelper)
         {
             _context = context;
             _groupRepository = new GroupRepository(_context);
             _permissionHelper = permissionHelper;
+            _websiteRepository = new WebsiteRepository(_context);
+            _credentialRepository = new CredentialRepository(_context);
         }
 
         // GET: Groups
@@ -48,34 +52,7 @@ namespace WebPulse_WebManager.Controllers
             return View(model);
         }
 
-        //GET: Groups/Dashboard/5
-        public async Task<IActionResult> Dashboard(int? id)
-        {
-            if (id == null || _context.Group == null)
-            {
-                return NotFound();
-            }
-
-            var group = await _groupRepository.FindById(id.Value);
-            if (group == null)
-            {
-                return NotFound();
-            }
-
-            GroupViewModel model = new GroupViewModel()
-            {
-                Id = group.Id,
-                Name = group.Name,
-                Description = group.Description,
-                AssignedUsers = group.AssignedUsers,
-                Websites = group.Websites,
-                Banner = group.Image != null ? Convert.ToBase64String(group.Image) : null
-            };
-
-            return View(model);
-        }
-
-        // GET: Groups/Details/5
+        //GET: Groups/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Group == null)
@@ -89,7 +66,25 @@ namespace WebPulse_WebManager.Controllers
                 return NotFound();
             }
 
-            return View(group);
+
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            GroupViewModel model = new GroupViewModel()
+            {
+                Id = group.Id,
+                Name = group.Name,
+                Description = group.Description,
+                AssignedUsers = group.AssignedUsers,
+                Websites = (await _permissionHelper.IsUserGlobalAdminOrOwnerAsync() && await _permissionHelper.IsGodModeOn())
+                    ? _websiteRepository.FindAll(filter: (website => website.Group == group)).ToList()
+                    : _websiteRepository.FindAll(filter: (website => website.Group == group && website.Users.Any(user => user.Id == currentUserId))).ToList(),
+                Credentials = (await _permissionHelper.IsUserGlobalAdminOrOwnerAsync() && await _permissionHelper.IsGodModeOn())
+                    ? _credentialRepository.FindAll(filter: (credential => credential.Website.Group == group)).ToList()
+                    : _credentialRepository.FindAll(filter: (credential => credential.Website.Group == group && credential.AssignedUsers.Any(user => user.Id == currentUserId))).ToList(),
+                Banner = group.Image != null ? Convert.ToBase64String(group.Image) : null
+            };
+
+
+            return View(model);
         }
 
         // GET: Groups/Create
@@ -287,7 +282,7 @@ namespace WebPulse_WebManager.Controllers
                 group.AssignedUsers.Add(user);
                 if(await _groupRepository.Update(group))
                 {
-                    return RedirectToAction(nameof(Dashboard), new { id = id });
+                    return RedirectToAction(nameof(Details), new { id = id });
                 }
                 else
                 {

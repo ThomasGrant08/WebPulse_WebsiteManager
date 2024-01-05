@@ -10,40 +10,5 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Url
-            </th>
-            <th>
-                Group
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Websites)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a href="@item.Url" target="_blank">@Html.DisplayFor(modelItem => item.Url)</a>
-                </td>
-                <td>
-                    @Html.ActionLink(item.Group.Name, "Dashboard", "Groups", new { id = item.Group.Id }, null)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@await Html.PartialAsync("./Components/Table", Model.Websites)

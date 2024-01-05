@@ -77,7 +77,7 @@ namespace WebPulse_WebManager.Controllers
             {
                 assignedFilter = website => website.Users.Any(user => user.Id == currentUserId) && website.Group.Id == group;
             }
-            
+
             ViewData["WebsiteId"] = new SelectList(_websiteRepository.FindAll(filter: assignedFilter), "Id", "Name");
             return View();
         }
@@ -101,7 +101,7 @@ namespace WebPulse_WebManager.Controllers
                 var userEmail = User.FindFirstValue(ClaimTypes.Email);
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == userEmail);
 
-                if(user != null)
+                if (user != null)
                 {
                     credential.AssignedUsers.Add(user);
                 }
@@ -111,12 +111,13 @@ namespace WebPulse_WebManager.Controllers
                 }
                 await _credentialRepository.Insert(credential);
                 return RedirectToAction(nameof(Index));
-            } else
+            }
+            else
             {
                 Debug.WriteLine("ModelState is invalid.");
                 foreach (var modelStateKey in ModelState.Keys)
                 {
-                    foreach(var error in ModelState[modelStateKey].Errors)
+                    foreach (var error in ModelState[modelStateKey].Errors)
                     {
                         Debug.WriteLine($"Key: {modelStateKey}, Error: {error.ErrorMessage}");
                     }
@@ -126,7 +127,7 @@ namespace WebPulse_WebManager.Controllers
             Func<Website, bool> assignedFilter = website => website.Users.Any(user => user.Id == currentUserId);
             ViewData["WebsiteId"] = new SelectList(_websiteRepository.FindAll(filter: assignedFilter), "Id", "Name", credential.WebsiteId);
 
-            
+
             return View(credential);
         }
 
@@ -143,7 +144,7 @@ namespace WebPulse_WebManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
+            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Name", credential.WebsiteId);
             return View(credential);
         }
 
@@ -152,7 +153,7 @@ namespace WebPulse_WebManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,Credential credential)
+        public async Task<IActionResult> Edit(int id, Credential credential)
         {
             if (id != credential.Id)
             {
@@ -168,10 +169,29 @@ namespace WebPulse_WebManager.Controllers
             {
                 try
                 {
-                    if(await _credentialRepository.Update(credential))
+                    var updateCredential = await _credentialRepository.FindById(id);
+
+                    if(updateCredential != null)
+                    {
+                        updateCredential.Title = credential.Title;
+                        updateCredential.Username = credential.Username;
+                        updateCredential.Password = credential.Password;
+                        updateCredential.Description = credential.Description;
+                        updateCredential.WebsiteId = credential.WebsiteId;
+                        updateCredential.Valid = true;
+                        
+                    } else
+                    {
+                        return BadRequest();
+                    }
+
+                    
+
+                    if (await _credentialRepository.Update(updateCredential))
                     {
                         return RedirectToAction(nameof(Index));
-                    } else
+                    }
+                    else
                     {
                         return Problem("Failed to update credential.");
                     }
@@ -188,7 +208,8 @@ namespace WebPulse_WebManager.Controllers
                     }
                 }
 
-            } else
+            }
+            else
             {
                 Debug.WriteLine("ModelState is invalid.");
                 foreach (var modelStateKey in ModelState.Keys)
@@ -199,7 +220,7 @@ namespace WebPulse_WebManager.Controllers
                     }
                 }
             }
-            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Id", credential.WebsiteId);
+            ViewData["WebsiteId"] = new SelectList(_context.Website, "Id", "Name", credential.WebsiteId);
             return View(credential);
         }
 
@@ -232,10 +253,11 @@ namespace WebPulse_WebManager.Controllers
             var credential = await _credentialRepository.FindById(id);
             if (credential != null)
             {
-                if(await _credentialRepository.Delete(credential))
+                if (await _credentialRepository.Delete(credential))
                 {
                     return RedirectToAction(nameof(Index));
-                } else
+                }
+                else
                 {
                     return Problem("Failed to delete credential.");
                 }
@@ -243,9 +265,55 @@ namespace WebPulse_WebManager.Controllers
             return BadRequest();
         }
 
+        public async Task<IActionResult> Validity(int id)
+        {
+            if (_context.Credential == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Credential'  is null.");
+            }
+
+            var credential = await _credentialRepository.FindById(id);
+
+            if (credential == null)
+            {
+                return NotFound();
+            }
+
+            return View(credential);
+        }
+
+        [HttpPost, ActionName("MarkInvalid")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ValidityConfirmed(int id, bool valid = false)
+        {
+            if (_context.Credential == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Credential'  is null.");
+            }
+
+            var updateCredential = await _credentialRepository.FindById(id);
+
+            if (updateCredential != null)
+            {
+                updateCredential.Valid = valid;
+
+                if (await _credentialRepository.Update(updateCredential))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return Problem("Failed to update credential validity.");
+                }
+
+            }
+            return BadRequest();
+
+        }
+
         private bool CredentialExists(int id)
         {
-          return (_context.Credential?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Credential?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -74,13 +74,40 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get all password spans
+            var passwordSpans = document.querySelectorAll('.password-span');
 
+            // Attach a click event listener to each password span
+            passwordSpans.forEach(function (span) {
+                span.addEventListener('click', function () {
+                    // Create a textarea element to store the inverted password temporarily
+                    var textarea = document.createElement('textarea');
 
+                    // Invert the password text and set it as the textarea value
+                    textarea.value = invertText(span.textContent);
 
+                    // Append the textarea to the body
+                    document.body.appendChild(textarea);
 
+                    // Select the text in the textarea
+                    textarea.select();
+                    document.execCommand('copy');
 
+                    // Remove the textarea from the DOM
+                    document.body.removeChild(textarea);
 
+                    // Optionally, provide some visual feedback to the user
+                    alert('Password copied to clipboard');
+                });
+            });
 
-
+            // Function to invert text
+            function invertText(text) {
+                return text.split('').reverse().join('');
+            }
+        });
+    </script>
 </body>
 </html>

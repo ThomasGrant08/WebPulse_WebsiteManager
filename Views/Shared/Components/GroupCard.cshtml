@@ -1,6 +1,6 @@
 ﻿@model Group;
 
-<a href="@Url.ActionLink("Dashboard","Groups", new { id = Model.Id })">
+<a href="@Url.ActionLink("Details","Groups", new { id = Model.Id })">
     <div class="card">
         @if (Model.Image != null && !String.IsNullOrEmpty(Convert.ToBase64String(Model.Image)))
         {
